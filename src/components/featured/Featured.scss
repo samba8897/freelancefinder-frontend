@@ -1,0 +1,121 @@
+.featured {
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  background-color: black; //#013914
+  color: white;
+
+  .container {
+    width: 1400px;
+    display: flex;
+    align-items: center;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+
+      h1 {
+        font-size: 50px;
+
+        span {
+          font-style: italic;
+          font-weight: 300;
+        }
+      }
+
+      .search {
+        background-color: #f9f9f9; /* Softer background */
+        border-radius: 30px; /* Rounder corners */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        transition: box-shadow 0.3s ease;
+        overflow: hidden;
+      }
+      
+      .search:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Subtle hover shadow */
+      }
+      
+      .searchInput {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Increased spacing */
+      }
+      
+      .searchInput img {
+        width: 24px; /* Larger search icon */
+        height: 24px;
+        margin: 5px; /* Less margin */
+      }
+      
+      .searchInput input {
+        border: none;
+        outline: none;
+        font-size: 16px; /* Larger text */
+        width: 300px; /* Wider input */
+        padding: 10px;
+        background-color: transparent;
+      }
+      
+      .searchInput input::placeholder {
+        color: #aaa; /* Lighter gray */
+      }
+      
+      button {
+        width: 130px;
+        height: 50px;
+        border: none;
+        background-color: #1dbf73; 
+        color: white;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease; 
+      }
+      
+      button:hover {
+        background-color: #17a864; 
+        transform: scale(1.05); 
+      }
+      
+
+      .popular {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        span {
+          width: max-content;
+        }
+
+        button {
+          width: max-content;
+          color: white;
+          border: 1px solid white;
+          padding: 5px 10px;
+          border-radius: 20px;
+          background-color: transparent;
+          font-size: 14px;
+          cursor: default;
+          
+        }
+      }
+    }
+      
+
+    .right {
+      height: 100%;
+      width: 70%;
+      position: relative;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        
+      }
+    }
+  }
+}
