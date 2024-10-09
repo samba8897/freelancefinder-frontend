@@ -24,6 +24,32 @@
     textarea {
       padding: 20px;
       border: 1px solid rgb(216, 214, 214);
+      font-size: 16px;
+    }
+
+    
+    .password-container {
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      input {
+        flex: 1;
+        padding-right: 40px; 
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        color: #666;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #333;
+        }
+      }
     }
 
     button {
@@ -34,11 +60,55 @@
       font-size: 18px;
       background-color: #1A73E8;
       cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #1559b0;
+      }
     }
 
-    span{
+    span {
       color: red;
       font-size: 12px;
+    }
+
+   
+    .captcha-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: #000;
+      padding: 15px;
+      border: 2px solid #333;
+      border-radius: 5px;
+      color: #fff;
+      margin-top: 20px;
+
+      .captcha-label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .captcha-display {
+       font-size: 34px;
+       font-weight: bold;
+        color: black !important; 
+        padding: 10px;
+        background-color: #222; 
+        border-radius: 4px;
+        text-align: center;
+       
+      }
+
+      .captcha-input {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #555;
+        border-radius: 4px;
+        background-color: #333;
+        color: #fff;
+      }
     }
   }
 }
