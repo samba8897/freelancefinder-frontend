@@ -1,5 +1,6 @@
 import axios from "axios";
-import getCurrentUser from "./path/to/getCurrentUser"; // Adjust the path accordingly
+import getCurrentUser from "../../utils/getCurrentUser";
+ // Adjust the path accordingly
 
 const newRequest = axios.create({
   baseURL: "https://prolancer-backend.onrender.com/api/",
