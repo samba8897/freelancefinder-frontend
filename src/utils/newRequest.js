@@ -1,5 +1,6 @@
 import axios from "axios";
-import getCurrentUser from "../../utils/getCurrentUser";
+import getCurrentUser from "./getCurrentUser"; 
+
  // Adjust the path accordingly
 
 const newRequest = axios.create({
