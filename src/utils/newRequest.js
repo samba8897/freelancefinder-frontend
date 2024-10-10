@@ -1,21 +1,19 @@
 import axios from "axios";
-import getCurrentUser from "./getCurrentUser"; 
-
- // Adjust the path accordingly
+import getCurrentUser from "./getCurrentUser"; // Adjust the path accordingly
 
 const newRequest = axios.create({
   baseURL: "https://prolancer-backend.onrender.com/api/",
   withCredentials: true,
 });
 
-
 newRequest.interceptors.request.use(
   (config) => {
-    const currentUser = getCurrentUser(); 
+    const currentUser = getCurrentUser();
 
-    // Check if the user and token exist
-    if (currentUser && currentUser.token) {
-      config.headers.Authorization = `Bearer ${currentUser.token}`; // Add token to request header
+    
+    if (currentUser) {
+     
+      config.headers.Authorization = `Bearer ${currentUser.token || ''}`; 
     }
 
     return config;
@@ -24,5 +22,36 @@ newRequest.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+export default newRequest;
+
+
+
+// import axios from "axios";
+// import getCurrentUser from "./getCurrentUser"; 
+
+ 
+
+// const newRequest = axios.create({
+//   baseURL: "https://prolancer-backend.onrender.com/api/",
+//   withCredentials: true,
+// });
+
+
+// newRequest.interceptors.request.use(
+//   (config) => {
+//     const currentUser = getCurrentUser(); 
+
+    
+//     if (currentUser && currentUser.token) {
+//       config.headers.Authorization = `Bearer ${currentUser.token}`; 
+//     }
+
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
 export default newRequest;
