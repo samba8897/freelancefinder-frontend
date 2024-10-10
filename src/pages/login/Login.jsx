@@ -33,10 +33,13 @@ function Login() {
 
     try {
       const res = await newRequest.post("/auth/login", { username, password });
-      localStorage.setItem("currentUser", JSON.stringify(res.data));
+      const { token, ...user } = res.data; // Destructure token and user details
+      user.token = token; // Add token to the user object
+      localStorage.setItem("currentUser", JSON.stringify(user)); // Store user details with token
+      localStorage.setItem("token", token); // Store token separately if needed
       navigate("/");
     } catch (err) {
-      setError(err.response.data);
+      setError(err.response?.data || "An error occurred during login");
     }
   };
 
