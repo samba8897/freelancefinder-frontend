@@ -54,4 +54,4 @@ export default newRequest;
 //   }
 // );
 
-export default newRequest;
+//export default newRequest;
