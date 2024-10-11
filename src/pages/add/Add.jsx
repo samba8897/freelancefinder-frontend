@@ -5,6 +5,7 @@ import upload from "../../utils/upload";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import { useNavigate } from "react-router-dom";
+import getCurrentUser from "../../utils/getCurrentUser"; // Import getCurrentUser
 
 const Add = () => {
   const [singleFile, setSingleFile] = useState(undefined);
@@ -19,6 +20,7 @@ const Add = () => {
       payload: { name: e.target.name, value: e.target.value },
     });
   };
+
   const handleFeature = (e) => {
     e.preventDefault();
     dispatch({
@@ -32,7 +34,6 @@ const Add = () => {
     setUploading(true);
     try {
       const cover = await upload(singleFile);
-
       const images = await Promise.all(
         [...files].map(async (file) => {
           const url = await upload(file);
@@ -43,11 +44,11 @@ const Add = () => {
       dispatch({ type: "ADD_IMAGES", payload: { cover, images } });
     } catch (err) {
       console.log(err);
+      setUploading(false);
     }
   };
 
   const navigate = useNavigate();
-
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -61,8 +62,17 @@ const Add = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutation.mutate(state);
-     navigate("/mygigs")
+    
+    const currentUser = getCurrentUser(); // Get the current user from local storage
+
+    // Ensure userId is included in the gig data
+    const gigData = {
+      ...state,
+      userId: currentUser._id, // Add userId from the current user
+    };
+
+    mutation.mutate(gigData); // Send the gig data to the API
+    navigate("/mygigs");
   };
 
   return (
@@ -89,7 +99,6 @@ const Add = () => {
               <option value="video-editor">Video Editor</option>
               <option value="social-media">Social Media</option>
               <option value="seo">SEO</option>
-              
             </select>
             <div className="images">
               <div className="imagesInputs">
