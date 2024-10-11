@@ -8,7 +8,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [captchaInput, setCaptchaInput] = useState("");
   const [generatedCaptcha, setGeneratedCaptcha] = useState(generateCaptcha());
-  const [showPassword, setShowPassword] = useState(false); // To toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -23,35 +23,32 @@ function Login() {
   }
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (captchaInput !== generatedCaptcha) {
-    setError("Invalid CAPTCHA. Please try again.");
-    setGeneratedCaptcha(generateCaptcha());
-    return;
-  }
+    if (captchaInput !== generatedCaptcha) {
+      setError("Invalid CAPTCHA. Please try again.");
+      setGeneratedCaptcha(generateCaptcha());
+      return;
+    }
 
-  try {
-    const res = await newRequest.post("/auth/login", { username, password });
-    console.log("Login Response:", res.data); // Log the response data
-    
-    // Destructure the token and user information correctly
-    const { token, ...user } = res.data; 
+    try {
+      const res = await newRequest.post("/auth/login", { username, password });
+      console.log("Login Response:", res.data);
 
-    // Log the token to ensure it's being captured
-    console.log("Captured Token:", token);
+      // Destructure the token and user information correctly
+      const { token, _id, ...user } = res.data;  // Ensure _id is included
 
-   
-    user.token = token; 
-    localStorage.setItem("currentUser", JSON.stringify(user)); // Store user details with token
-    localStorage.setItem("token", token); // Store token separately if needed
+      console.log("Captured Token:", token);
 
-    navigate("/");
-  } catch (err) {
-    setError(err.response?.data || "An error occurred during login");
-  }
-};
+      user.token = token; 
+      localStorage.setItem("currentUser", JSON.stringify({ ...user, _id })); // Store user details with token and userId
+      localStorage.setItem("token", token); // Store token separately if needed
 
+      navigate("/"); // Redirect to the main page or dashboard
+    } catch (err) {
+      setError(err.response?.data || "An error occurred during login");
+    }
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
