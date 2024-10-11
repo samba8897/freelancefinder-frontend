@@ -16,7 +16,7 @@ function Login() {
   function generateCaptcha() {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
-    for (let i = 0; i < 6; i++) { 
+    for (let i = 0; i < 6; i++) {
       result += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     return result;
@@ -24,10 +24,10 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (captchaInput !== generatedCaptcha) {
       setError("Invalid CAPTCHA. Please try again.");
-      setGeneratedCaptcha(generateCaptcha()); 
+      setGeneratedCaptcha(generateCaptcha());
       return;
     }
 
@@ -64,12 +64,12 @@ function Login() {
         <div className="password-container">
           <input
             name="password"
-            type={showPassword ? "text" : "password"} 
+            type={showPassword ? "text" : "password"}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
           <span className="password-toggle" onClick={togglePasswordVisibility}>
-            {showPassword ? "🙈" : "👁️"} 
+            {showPassword ? "🙈" : "👁️"}
           </span>
         </div>
 
