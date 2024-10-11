@@ -68,7 +68,7 @@ const Add = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const currentUser = getCurrentUser(); // Get the current user from local storage
 
     if (!currentUser) {
@@ -133,7 +133,6 @@ const Add = () => {
             <label htmlFor="">Description<span style={{ color: "red" }}>*</span></label>
             <textarea
               name="desc"
-              id=""
               placeholder="Brief descriptions to introduce your service to customers"
               cols="0"
               rows="16"
@@ -154,7 +153,6 @@ const Add = () => {
             <textarea
               name="shortDesc"
               onChange={handleChange}
-              id=""
               placeholder="Short description of your service"
               cols="30"
               rows="10"
@@ -168,7 +166,7 @@ const Add = () => {
               onChange={handleChange}
             />
             <label htmlFor="">Add Features<span style={{ color: "red" }}>*</span></label>
-            <form action="" className="add" onSubmit={handleFeature}>
+            <form className="add" onSubmit={handleFeature}>
               <input type="text" placeholder="e.g. page design" />
               <button type="submit">Add</button>
             </form>
