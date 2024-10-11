@@ -6,20 +6,26 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 
 function MyGigs() {
-
   const queryClient = useQueryClient();
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = getCurrentUser();
 
+  // If currentUser is not found, handle it gracefully
+  if (!currentUser) {
+    return <div>Please log in to view your gigs.</div>;
+  }
+
+  // Fetch gigs data based on the current user's ID
   const { isLoading, error, data } = useQuery({
     queryKey: ["myGigs"],
     queryFn: () =>
       newRequest.get(`/gigs?userId=${currentUser._id}`).then((res) => {
-        console.log(currentUser.id);
-        console.log(res.data,"new");
+        console.log(currentUser._id);
+        console.log(res.data, "new");
         return res.data;
       }),
   });
 
+  // Mutation for deleting a gig
   const mutation = useMutation({
     mutationFn: (id) => {
       return newRequest.delete(`/gigs/${id}`);
@@ -29,6 +35,7 @@ function MyGigs() {
     },
   });
 
+  // Handle deletion of a gig
   const handleDelete = (id) => {
     mutation.mutate(id);
   };
@@ -36,9 +43,9 @@ function MyGigs() {
   return (
     <div className="myGigs">
       {isLoading ? (
-        "loading"
+        "Loading..."
       ) : error ? (
-        "error"
+        "An error occurred while fetching your gigs."
       ) : (
         <div className="container">
           <div className="title">
@@ -50,31 +57,38 @@ function MyGigs() {
             )}
           </div>
           <table>
-            <tr>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Price</th>
-             
-              <th>Action</th>
-            </tr>
-            {data.map((gig) => (
-              <tr key={gig._id}>
-                <td>
-                  <img className="image" style={{objectFit:'cover'}} src={gig.cover} alt="" />
-                </td>
-                <td>{gig.title}</td>
-                <td>{gig.price}</td>
-              
-                <td>
-                  <img
-                    className="delete"
-                    src="./img/delete.png"
-                    alt=""
-                    onClick={() => handleDelete(gig._id)}
-                  />
-                </td>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Action</th>
               </tr>
-            ))}
+            </thead>
+            <tbody>
+              {data.map((gig) => (
+                <tr key={gig._id}>
+                  <td>
+                    <img
+                      className="image"
+                      style={{ objectFit: "cover" }}
+                      src={gig.cover}
+                      alt=""
+                    />
+                  </td>
+                  <td>{gig.title}</td>
+                  <td>{gig.price}</td>
+                  <td>
+                    <img
+                      className="delete"
+                      src="./img/delete.png"
+                      alt="Delete"
+                      onClick={() => handleDelete(gig._id)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       )}
