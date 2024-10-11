@@ -11,6 +11,7 @@ const Add = () => {
   const [singleFile, setSingleFile] = useState(undefined);
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState(null); // To handle any errors during submission
 
   const [state, dispatch] = useReducer(gigReducer, INITIAL_STATE);
 
@@ -43,8 +44,9 @@ const Add = () => {
       setUploading(false);
       dispatch({ type: "ADD_IMAGES", payload: { cover, images } });
     } catch (err) {
-      console.log(err);
+      console.error("Upload Error:", err);
       setUploading(false);
+      setError("Failed to upload images. Please try again."); // Handle upload errors
     }
   };
 
@@ -57,6 +59,10 @@ const Add = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["myGigs"]);
+      navigate("/mygigs"); // Navigate after successful gig creation
+    },
+    onError: (err) => {
+      setError(err.response?.data || "Failed to create gig."); // Handle mutation errors
     },
   });
 
@@ -65,6 +71,11 @@ const Add = () => {
     
     const currentUser = getCurrentUser(); // Get the current user from local storage
 
+    if (!currentUser) {
+      setError("You must be logged in to create a gig."); // Check if the user is logged in
+      return;
+    }
+
     // Ensure userId is included in the gig data
     const gigData = {
       ...state,
@@ -72,15 +83,16 @@ const Add = () => {
     };
 
     mutation.mutate(gigData); // Send the gig data to the API
-    navigate("/mygigs");
   };
 
   return (
     <div className="add">
       <div className="container">
         <h1>Add New Gig</h1>
+        {error && <div className="error-message">{error}</div>} {/* Display error messages */}
         <div className="sections">
           <div className="info">
+            {/* Form fields */}
             <label htmlFor="">Title<span style={{ color: "red" }}>*</span></label>
             <input
               type="text"
@@ -115,7 +127,7 @@ const Add = () => {
                 />
               </div>
               <button onClick={handleUpload}>
-                {uploading ? "uploading" : "Upload"}
+                {uploading ? "Uploading..." : "Upload"}
               </button>
             </div>
             <label htmlFor="">Description<span style={{ color: "red" }}>*</span></label>
@@ -130,6 +142,7 @@ const Add = () => {
             <button onClick={handleSubmit}>Create</button>
           </div>
           <div className="details">
+            {/* Additional details fields */}
             <label htmlFor="">Service Title<span style={{ color: "red" }}>*</span></label>
             <input
               type="text"
@@ -157,7 +170,7 @@ const Add = () => {
             <label htmlFor="">Add Features<span style={{ color: "red" }}>*</span></label>
             <form action="" className="add" onSubmit={handleFeature}>
               <input type="text" placeholder="e.g. page design" />
-              <button type="submit">add</button>
+              <button type="submit">Add</button>
             </form>
             <div className="addedFeatures">
               {state?.features?.map((f) => (
