@@ -103,7 +103,7 @@ const Add = () => {
             <label htmlFor="">Category<span style={{ color: "red" }}>*</span></label>
 <select name="cat" id="cat" onChange={handleChange} defaultValue="">
   <option value="" disabled>Add your Category</option>
-  <option value="design">Logo Design</option>
+  <option value="logo-design">Logo Design</option>
   <option value="web-development">Web Development</option>
   <option value="animation">Animation</option>
   <option value="ai-artists">AI Artists</option>
