@@ -33,18 +33,11 @@ function Login() {
 
     try {
       const res = await newRequest.post("/auth/login", { username, password });
-      console.log("Login Response:", res.data);
+      const { token, _id, ...user } = res.data;  // Ensure _id is included
 
-      // Capture token and user data
-      const { token, _id, ...user } = res.data; // Make sure _id is included
-      console.log("Captured Token:", token);
-
-      // Get current users from session storage
-      const currentUsers = JSON.parse(sessionStorage.getItem("currentUsers")) || {};
-
-      // Store user data uniquely
-      currentUsers[_id] = { ...user, token };
-      sessionStorage.setItem("currentUsers", JSON.stringify(currentUsers)); // Store all users
+      user.token = token; 
+      localStorage.setItem("currentUser", JSON.stringify({ ...user, _id })); // Store user details with token and userId
+      localStorage.setItem("token", token); // Store token separately if needed
 
       navigate("/"); // Redirect to the main page or dashboard
     } catch (err) {
