@@ -101,17 +101,18 @@ const Add = () => {
               onChange={handleChange}
             />
             <label htmlFor="">Category<span style={{ color: "red" }}>*</span></label>
-            <select name="cat" id="cat" onChange={handleChange}>
-             <option value="" disabled>Add your Category</option>
-              <option value="design">Logo Design</option>
-              <option value="web-development">Web Development</option>
-              <option value="animation">Animation</option>
-              <option value="ai-artists">AI Artists</option>
-              <option value="wordpress">Word Press</option>
-              <option value="video-editor">Video Editor</option>
-              <option value="social-media">Social Media</option>
-              <option value="seo">SEO</option>
-            </select>
+<select name="cat" id="cat" onChange={handleChange} defaultValue="">
+  <option value="" disabled>Add your Category</option>
+  <option value="design">Logo Design</option>
+  <option value="web-development">Web Development</option>
+  <option value="animation">Animation</option>
+  <option value="ai-artists">AI Artists</option>
+  <option value="wordpress">Word Press</option>
+  <option value="video-editor">Video Editor</option>
+  <option value="social-media">Social Media</option>
+  <option value="seo">SEO</option>
+</select>
+
             <div className="images">
               <div className="imagesInputs">
                 <label htmlFor="">Cover Image<span style={{ color: "red" }}>*</span></label>
