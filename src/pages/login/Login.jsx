@@ -36,7 +36,7 @@ function Login() {
       console.log("Login Response:", res.data);
 
       // Destructure the token and user information correctly
-      const { token, _id, ...user } = res.data;  // Ensure _id is included
+      const { token, _id, ...user } = res.data; // Ensure _id is included
 
       console.log("Captured Token:", token);
 
