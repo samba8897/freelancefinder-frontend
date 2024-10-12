@@ -58,7 +58,9 @@ function Navbar() {
         <div className="links">
           <span>ProLancer Business</span>
           <span>Explore</span>
-          <span>English</span>
+          <Link className="link" to="/">
+            <span className="text">Home</span>
+          </Link>
           {/* {!currentUser?.isSeller && <span onClick={becomeSeller} className="highlight-seller">Become a Seller</span>} */}
           {currentUser ? (
             <div className="user" onClick={() => setOpen(!open)}>
