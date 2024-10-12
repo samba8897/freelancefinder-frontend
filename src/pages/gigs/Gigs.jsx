@@ -43,7 +43,7 @@ function Gigs() {
   return (
     <div className="gigs">
       <div className="container">
-        <span className="breadcrumbs">ProLancer {">"} Graphics & Design {">"}</span>
+        <span className="breadcrumbs">ProLancer {">"} Gigs {">"}</span>
         <h1>{search.toUpperCase().split("=")[1]}</h1>
         <p>
           Explore the boundaries of art and technology with ProLancer's AI artists
