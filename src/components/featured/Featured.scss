@@ -25,7 +25,7 @@
       }
 
       .search {
-        background-color: #f9f9f9; /* Softer background */
+        background-color: #f9f9f9; 
         border-radius: 30px; /* Rounder corners */
         display: flex;
         align-items: center;
@@ -116,6 +116,8 @@
       overflow: hidden; 
       top: 15px;
     
+      
+    
       img {
         max-width: 100%; 
         max-height: 130%; 
@@ -129,9 +131,15 @@
     
       @keyframes animate {
         to {
-          transform: translateY(15px);
+          transform: translateY(20px);
         }
       }
     }
+    
+    
+    
+  
+  
+  
   }
 }
