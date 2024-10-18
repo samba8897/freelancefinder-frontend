@@ -107,14 +107,30 @@
       
 
     .right {
+      position: relative;
       height: 100%;
       width: 70%;
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden; 
+      top: 15px;
+    
       img {
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
-        
+        max-width: 100%; 
+        max-height: 130%; 
+        object-fit: contain; 
+        background-color: transparent;
+        mix-blend-mode: screen; 
+        animation: animate 3s infinite ease-in-out alternate; 
+        position: relative; 
+        z-index: 1; 
+      }
+    
+      @keyframes animate {
+        to {
+          transform: translateY(15px);
+        }
       }
     }
   }
