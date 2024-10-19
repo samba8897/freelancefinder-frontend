@@ -3,7 +3,7 @@ import "./Gigs.scss";
 import GigCard from "../../components/gigCard/GigCard";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Gigs() {
   const [sort, setSort] = useState("sales");
@@ -12,6 +12,16 @@ function Gigs() {
   const maxRef = useRef();
 
   const { search } = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is authenticated
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (!user) {
+      navigate("/login");
+
+    }
+  }, [navigate]);
 
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["gigs"],
@@ -43,7 +53,7 @@ function Gigs() {
   return (
     <div className="gigs">
       <div className="container">
-        <span className="breadcrumbs">ProLancer {">"} Gigs {">"}</span>
+        <span className="breadcrumbs">ProLancer {">"} Graphics & Design {">"}</span>
         <h1>{search.toUpperCase().split("=")[1]}</h1>
         <p>
           Explore the boundaries of art and technology with ProLancer's AI artists
